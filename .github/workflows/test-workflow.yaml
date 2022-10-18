@@ -1,0 +1,31 @@
+name: Test reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      app-name:
+        required: true
+        type: string
+
+jobs:
+
+  test-job:
+    name: Test reusable workflow job one
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set Environment Variables
+      id: env-name
+      env:
+        REPO: ${{ github.repository }}
+      run: |
+        ENVIRONMENT=`echo $REPO | tr "/" "-"`
+        echo "Environment name: $ENVIRONMENT"
+        echo "::set-output name=environment::$ENVIRONMENT"
+        APP_NAME=`echo $ENVIRONMENT`
+        echo "App name: $APP_NAME"
+        echo "::set-output name=appname::$APP_NAME"
