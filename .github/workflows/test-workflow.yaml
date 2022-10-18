@@ -26,6 +26,6 @@ jobs:
         ENVIRONMENT=`echo $REPO | tr "/" "-"`
         echo "Environment name: $ENVIRONMENT"
         echo "::set-output name=environment::$ENVIRONMENT"
-        APP_NAME=`echo $ENVIRONMENT`
+        APP_NAME="${{ inputs.app-name }}"
         echo "App name: $APP_NAME"
         echo "::set-output name=appname::$APP_NAME"
